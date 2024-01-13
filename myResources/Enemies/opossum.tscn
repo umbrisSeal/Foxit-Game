@@ -1,0 +1,142 @@
+[gd_scene load_steps=22 format=3 uid="uid://cratncks5ujgw"]
+
+[ext_resource type="Script" path="res://myResources/Enemies/opossum.gd" id="1_7mneq"]
+[ext_resource type="Texture2D" uid="uid://bn12qrob485vb" path="res://Sunny-land-files/Graphical Assets/sprites/enemy-death/enemy-death-1.png" id="1_bcgp5"]
+[ext_resource type="AudioStream" uid="uid://dnbsiwug4nvwx" path="res://myResources/SFX/enemyKilled.mp3" id="1_yglbs"]
+[ext_resource type="Texture2D" uid="uid://ifdyc20nwggp" path="res://Sunny-land-files/Graphical Assets/sprites/enemy-death/enemy-death-2.png" id="2_tx1ru"]
+[ext_resource type="Texture2D" uid="uid://c17yvueel15oy" path="res://Sunny-land-files/Graphical Assets/sprites/enemy-death/enemy-death-3.png" id="3_33m18"]
+[ext_resource type="Texture2D" uid="uid://b380n6nenk0mf" path="res://Sunny-land-files/Graphical Assets/sprites/enemy-death/enemy-death-4.png" id="4_p2kn5"]
+[ext_resource type="Texture2D" uid="uid://b7nn3pjx6xx84" path="res://Sunny-land-files/Graphical Assets/sprites/enemy-death/enemy-death-5.png" id="5_ynwus"]
+[ext_resource type="Texture2D" uid="uid://k48v4wn8gps7" path="res://Sunny-land-files/Graphical Assets/sprites/enemy-death/enemy-death-6.png" id="6_pwjac"]
+[ext_resource type="Texture2D" uid="uid://crjjmug140xhu" path="res://Sunny-land-files/Graphical Assets/sprites/opossum/opossum-1.png" id="7_qfjtq"]
+[ext_resource type="Texture2D" uid="uid://cmf67tw1tnprg" path="res://Sunny-land-files/Graphical Assets/sprites/opossum/opossum-2.png" id="8_rm881"]
+[ext_resource type="Texture2D" uid="uid://ceesto3uno5st" path="res://Sunny-land-files/Graphical Assets/sprites/opossum/opossum-3.png" id="9_u2gb0"]
+[ext_resource type="Texture2D" uid="uid://dsglh3ncgdue2" path="res://Sunny-land-files/Graphical Assets/sprites/opossum/opossum-4.png" id="10_8538q"]
+[ext_resource type="Texture2D" uid="uid://drlj8uroecp65" path="res://Sunny-land-files/Graphical Assets/sprites/opossum/opossum-5.png" id="11_uov7u"]
+[ext_resource type="Texture2D" uid="uid://bfuuxmh875gpw" path="res://Sunny-land-files/Graphical Assets/sprites/opossum/opossum-6.png" id="12_r10i5"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6via2"]
+animations = [{
+"frames": [{
+"duration": 0.2,
+"texture": ExtResource("1_bcgp5")
+}, {
+"duration": 0.2,
+"texture": ExtResource("2_tx1ru")
+}, {
+"duration": 0.2,
+"texture": ExtResource("3_33m18")
+}, {
+"duration": 0.2,
+"texture": ExtResource("4_p2kn5")
+}, {
+"duration": 0.2,
+"texture": ExtResource("5_ynwus")
+}, {
+"duration": 0.2,
+"texture": ExtResource("6_pwjac")
+}],
+"loop": false,
+"name": &"Dead",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_qfjtq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_rm881")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_u2gb0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_8538q")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_uov7u")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_r10i5")
+}],
+"loop": true,
+"name": &"Running",
+"speed": 12.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n4anl"]
+size = Vector2(18, 9)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v0bgl"]
+size = Vector2(30, 12)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fk53x"]
+size = Vector2(20, 6)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_31lke"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_kjbkl"]
+radius = 6.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6lkw4"]
+radius = 6.0
+
+[node name="Opossum" type="CharacterBody2D"]
+script = ExtResource("1_7mneq")
+
+[node name="Animation" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_6via2")
+animation = &"Running"
+autoplay = "Running"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-3, 9.5)
+shape = SubResource("RectangleShape2D_n4anl")
+
+[node name="AttackRange" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackRange"]
+position = Vector2(-3, 8)
+shape = SubResource("RectangleShape2D_v0bgl")
+debug_color = Color(0.996078, 0, 0.168627, 0.419608)
+
+[node name="DamangeRange" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DamangeRange"]
+position = Vector2(-3, -1)
+shape = SubResource("RectangleShape2D_fk53x")
+debug_color = Color(0, 0.65098, 0.137255, 0.419608)
+
+[node name="Vision" type="Node2D" parent="."]
+
+[node name="HeadCollision" type="Area2D" parent="Vision"]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Vision/HeadCollision"]
+position = Vector2(16, -16)
+shape = SubResource("RectangleShape2D_31lke")
+debug_color = Color(0.470588, 0.592157, 0, 0.419608)
+
+[node name="LeftEye" type="Area2D" parent="Vision"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Vision/LeftEye"]
+position = Vector2(-19, 22)
+shape = SubResource("CircleShape2D_kjbkl")
+debug_color = Color(0.470588, 0.592157, 0, 0.419608)
+
+[node name="RightEye" type="Area2D" parent="Vision"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Vision/RightEye"]
+position = Vector2(13, 22)
+shape = SubResource("CircleShape2D_6lkw4")
+debug_color = Color(0.470588, 0.592157, 0, 0.419608)
+
+[node name="killedEffect" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("1_yglbs")
+volume_db = -40.0
+pitch_scale = 2.5
+
+[connection signal="body_entered" from="AttackRange" to="." method="_on_attack_range_body_entered"]
+[connection signal="body_entered" from="DamangeRange" to="." method="_on_damange_range_body_entered"]
+[connection signal="body_exited" from="Vision/LeftEye" to="." method="_on_left_eye_body_exited"]
+[connection signal="body_exited" from="Vision/RightEye" to="." method="_on_right_eye_body_exited"]

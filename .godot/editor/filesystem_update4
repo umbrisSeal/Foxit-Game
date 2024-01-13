@@ -1,0 +1,4 @@
+res://Levels/level4.tscn
+res://global/globalTileSet.tres
+res://escenas/ending_screen.tscn
+res://myResources/Enemies/eagle.gd

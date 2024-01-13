@@ -1,0 +1,44 @@
+[gd_scene load_steps=6 format=3 uid="uid://5772kprdmuc6"]
+
+[ext_resource type="Script" path="res://global/plataform_pendulum.gd" id="1_507u4"]
+[ext_resource type="Texture2D" uid="uid://vni3dau3xont" path="res://myResources/Img/Plataform.png" id="1_k21tr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rch1q"]
+size = Vector2(165, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oktg7"]
+size = Vector2(160, 9)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e2b13"]
+size = Vector2(184, 26)
+
+[node name="PlataformPendulum" type="StaticBody2D"]
+script = ExtResource("1_507u4")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(1.35525e-20, 69)
+scale = Vector2(0.353916, 0.353916)
+texture = ExtResource("1_k21tr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, 144)
+shape = SubResource("RectangleShape2D_rch1q")
+
+[node name="StickyArea" type="Area2D" parent="."]
+position = Vector2(0.5, 144)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StickyArea"]
+position = Vector2(-0.5, -7.5)
+shape = SubResource("RectangleShape2D_oktg7")
+debug_color = Color(0.596078, 0.545098, 0, 0.419608)
+
+[node name="DestickyArea" type="Area2D" parent="."]
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DestickyArea"]
+position = Vector2(0, 133)
+shape = SubResource("RectangleShape2D_e2b13")
+debug_color = Color(0.713726, 0, 0.14902, 0.419608)
+
+[connection signal="body_entered" from="StickyArea" to="." method="_on_sticky_area_body_entered"]
+[connection signal="body_exited" from="DestickyArea" to="." method="_on_desticky_area_body_exited"]

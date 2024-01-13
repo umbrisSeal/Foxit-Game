@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://30uamqudak6l"]
+
+[ext_resource type="Texture2D" uid="uid://dug0n0rtho14n" path="res://Sunny-land-files/Graphical Assets/sprites/player/climb/player-climb-1.png" id="1_w3qn3"]
+[ext_resource type="Texture2D" uid="uid://62styjj85l7i" path="res://Sunny-land-files/Graphical Assets/sprites/player/climb/player-climb-2.png" id="2_a7xof"]
+[ext_resource type="Texture2D" uid="uid://bavb2go34of6b" path="res://Sunny-land-files/Graphical Assets/sprites/player/climb/player-climb-3.png" id="3_x83j7"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4bvb3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_w3qn3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_a7xof")
+}, {
+"duration": 1.0,
+"texture": ExtResource("1_w3qn3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_x83j7")
+}],
+"loop": true,
+"name": &"Dancing",
+"speed": 4.0
+}]
+
+[node name="DancingPlayer" type="AnimatedSprite2D"]
+scale = Vector2(1.125, 1.125)
+sprite_frames = SubResource("SpriteFrames_4bvb3")
+animation = &"Dancing"
+autoplay = "Dancing"
+frame_progress = 0.578418

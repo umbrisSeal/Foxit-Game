@@ -1,0 +1,137 @@
+[gd_scene load_steps=18 format=3 uid="uid://cpo02pwgyxwg8"]
+
+[ext_resource type="Script" path="res://myResources/Enemies/eagle.gd" id="1_jlq05"]
+[ext_resource type="Texture2D" uid="uid://bn12qrob485vb" path="res://Sunny-land-files/Graphical Assets/sprites/enemy-death/enemy-death-1.png" id="1_mcpex"]
+[ext_resource type="Texture2D" uid="uid://djo2arnmtt4cv" path="res://Sunny-land-files/Graphical Assets/sprites/eagle/eagle-attack-1.png" id="1_oatvh"]
+[ext_resource type="Texture2D" uid="uid://ifdyc20nwggp" path="res://Sunny-land-files/Graphical Assets/sprites/enemy-death/enemy-death-2.png" id="2_2edpi"]
+[ext_resource type="Texture2D" uid="uid://cqbvwmeftggoy" path="res://Sunny-land-files/Graphical Assets/sprites/eagle/eagle-attack-2.png" id="2_iuxvr"]
+[ext_resource type="Texture2D" uid="uid://c17yvueel15oy" path="res://Sunny-land-files/Graphical Assets/sprites/enemy-death/enemy-death-3.png" id="3_h4m3a"]
+[ext_resource type="Texture2D" uid="uid://bjrp2kvtibr8l" path="res://Sunny-land-files/Graphical Assets/sprites/eagle/eagle-attack-3.png" id="3_qprop"]
+[ext_resource type="Texture2D" uid="uid://b380n6nenk0mf" path="res://Sunny-land-files/Graphical Assets/sprites/enemy-death/enemy-death-4.png" id="4_cgt8f"]
+[ext_resource type="Texture2D" uid="uid://b7nn3pjx6xx84" path="res://Sunny-land-files/Graphical Assets/sprites/enemy-death/enemy-death-5.png" id="5_tu7jc"]
+[ext_resource type="Texture2D" uid="uid://k48v4wn8gps7" path="res://Sunny-land-files/Graphical Assets/sprites/enemy-death/enemy-death-6.png" id="6_jnm53"]
+[ext_resource type="Texture2D" uid="uid://b7vm071xpvuff" path="res://Sunny-land-files/Graphical Assets/sprites/eagle/eagle-attack-4.png" id="7_k7wex"]
+[ext_resource type="AudioStream" uid="uid://dnbsiwug4nvwx" path="res://myResources/SFX/enemyKilled.mp3" id="12_o0rdt"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_u6il7"]
+size = Vector2(12, 12)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_c7b0n"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_oatvh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_iuxvr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_qprop")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_k7wex")
+}],
+"loop": true,
+"name": &"Attack",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 0.2,
+"texture": ExtResource("1_mcpex")
+}, {
+"duration": 0.2,
+"texture": ExtResource("2_2edpi")
+}, {
+"duration": 0.2,
+"texture": ExtResource("3_h4m3a")
+}, {
+"duration": 0.2,
+"texture": ExtResource("4_cgt8f")
+}, {
+"duration": 0.2,
+"texture": ExtResource("5_tu7jc")
+}, {
+"duration": 0.2,
+"texture": ExtResource("6_jnm53")
+}],
+"loop": false,
+"name": &"Dead",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_k7wex")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_iuxvr")
+}],
+"loop": true,
+"name": &"Point",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_a81tu"]
+radius = 227.055
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_j52n7"]
+size = Vector2(27, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pgtju"]
+size = Vector2(23, 8)
+
+[node name="Eagle" type="CharacterBody2D"]
+script = ExtResource("1_jlq05")
+
+[node name="CollisionArea" type="CollisionShape2D" parent="."]
+position = Vector2(-4, 11)
+shape = SubResource("RectangleShape2D_u6il7")
+
+[node name="Animation" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_c7b0n")
+animation = &"Idle"
+autoplay = "Idle"
+
+[node name="VisionRange" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="VisionRange"]
+position = Vector2(-3, 5)
+shape = SubResource("CircleShape2D_a81tu")
+debug_color = Color(0.560784, 0.560784, 0.101961, 0.419608)
+
+[node name="AttackRange" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackRange"]
+position = Vector2(-2.5, 8)
+shape = SubResource("RectangleShape2D_j52n7")
+debug_color = Color(0.988235, 0.0941176, 0.117647, 0.419608)
+
+[node name="DamangeRange" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DamangeRange"]
+position = Vector2(-2.5, -2)
+shape = SubResource("RectangleShape2D_pgtju")
+debug_color = Color(0.207843, 0.639216, 0, 0.419608)
+
+[node name="PointTimer" type="Timer" parent="."]
+wait_time = 1.4
+one_shot = true
+
+[node name="AttackTimer" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
+
+[node name="killedEffect" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("12_o0rdt")
+volume_db = -40.0
+pitch_scale = 2.5
+
+[connection signal="body_entered" from="VisionRange" to="." method="_on_vision_range_body_entered"]
+[connection signal="body_entered" from="AttackRange" to="." method="_on_attack_range_body_entered"]
+[connection signal="body_entered" from="DamangeRange" to="." method="_on_damange_range_body_entered"]
+[connection signal="timeout" from="PointTimer" to="." method="_on_point_timer_timeout"]
+[connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]

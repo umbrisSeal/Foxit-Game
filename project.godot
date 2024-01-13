@@ -1,0 +1,32 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="Foxit Game"
+config/description="This is my first game in godot, and this is the description."
+run/main_scene="res://main_scene.tscn"
+config/features=PackedStringArray("4.1", "Mobile")
+config/icon="res://myResources/FoxitGameIcon.ico"
+config/windows_native_icon="res://myResources/FoxitGameIcon.ico"
+
+[autoload]
+
+Game="*res://global/Game.gd"
+Utilities="*res://global/Utilities.gd"
+
+[display]
+
+window/size/resizable=false
+
+[rendering]
+
+textures/canvas_textures/default_texture_filter=0
+renderer/rendering_method="mobile"

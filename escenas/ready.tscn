@@ -1,0 +1,89 @@
+[gd_scene load_steps=7 format=3 uid="uid://cn18oxfoxvhso"]
+
+[ext_resource type="Texture2D" uid="uid://bftu85by3pf1u" path="res://myResources/Img/black.webp" id="1_inoeu"]
+[ext_resource type="Script" path="res://escenas/ready.gd" id="1_sfkhf"]
+[ext_resource type="Texture2D" uid="uid://udri1c3q0w7l" path="res://Sunny-land-files/Graphical Assets/sprites/player/idle/player-idle-1.png" id="2_ltat5"]
+[ext_resource type="AudioStream" uid="uid://6muphi3uu713" path="res://myResources/Music/gameStart.mp3" id="3_yhmxb"]
+[ext_resource type="AudioStream" uid="uid://0etxevqp4odw" path="res://myResources/Music/gameOver.mp3" id="5_8dww3"]
+[ext_resource type="Texture2D" uid="uid://dsrjw82h880nk" path="res://Sunny-land-files/Graphical Assets/sprites/gem/gem-1.png" id="6_ks8eb"]
+
+[node name="getReady" type="Node2D"]
+script = ExtResource("1_sfkhf")
+
+[node name="background" type="Sprite2D" parent="."]
+position = Vector2(576, 324)
+scale = Vector2(1.8, 1.35)
+texture = ExtResource("1_inoeu")
+
+[node name="PlayerIndicator" type="Sprite2D" parent="."]
+position = Vector2(514.031, 273)
+scale = Vector2(2.0625, 2.0625)
+texture = ExtResource("2_ltat5")
+
+[node name="livesIndicator" type="Label" parent="."]
+offset_left = 570.031
+offset_top = 265.0
+offset_right = 690.031
+offset_bottom = 310.0
+theme_override_font_sizes/font_size = 30
+text = "x    5"
+
+[node name="gameOverIndicator" type="Label" parent="."]
+visible = false
+offset_left = 496.0
+offset_top = 312.0
+offset_right = 659.0
+offset_bottom = 357.0
+theme_override_font_sizes/font_size = 30
+text = "Game Over"
+
+[node name="levelIndicator" type="Label" parent="."]
+offset_left = 496.0
+offset_top = 360.0
+offset_right = 634.0
+offset_bottom = 391.0
+theme_override_font_sizes/font_size = 20
+text = "Nivel   -   1"
+horizontal_alignment = 1
+
+[node name="gemsDisplay" type="Node2D" parent="."]
+
+[node name="soundtrack" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_yhmxb")
+volume_db = -30.0
+
+[node name="gameoverSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_8dww3")
+volume_db = -30.0
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 3.5
+autostart = true
+
+[node name="Diamonds" type="Node2D" parent="."]
+
+[node name="Gem-1" type="Sprite2D" parent="Diamonds"]
+modulate = Color(1, 1, 1, 0.345098)
+position = Vector2(494.212, 451.25)
+scale = Vector2(2.96154, 2.96154)
+texture = ExtResource("6_ks8eb")
+
+[node name="Gem-2" type="Sprite2D" parent="Diamonds"]
+modulate = Color(1, 1, 1, 0.345098)
+position = Vector2(545.212, 451.25)
+scale = Vector2(2.96154, 2.96154)
+texture = ExtResource("6_ks8eb")
+
+[node name="Gem-3" type="Sprite2D" parent="Diamonds"]
+modulate = Color(1, 1, 1, 0.345098)
+position = Vector2(596.212, 451.25)
+scale = Vector2(2.96154, 2.96154)
+texture = ExtResource("6_ks8eb")
+
+[node name="Gem-4" type="Sprite2D" parent="Diamonds"]
+modulate = Color(1, 1, 1, 0.345098)
+position = Vector2(647.211, 451.25)
+scale = Vector2(2.96154, 2.96154)
+texture = ExtResource("6_ks8eb")
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

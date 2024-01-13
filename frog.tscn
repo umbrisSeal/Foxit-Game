@@ -1,0 +1,131 @@
+[gd_scene load_steps=20 format=3 uid="uid://cy7pvyfo17852"]
+
+[ext_resource type="Script" path="res://frog.gd" id="1_2bpk2"]
+[ext_resource type="Texture2D" uid="uid://jv51o76ganvi" path="res://Sunny-land-files/Graphical Assets/sprites/frog/idle/frog-idle-1.png" id="1_76xje"]
+[ext_resource type="Texture2D" uid="uid://bn12qrob485vb" path="res://Sunny-land-files/Graphical Assets/sprites/enemy-death/enemy-death-1.png" id="1_vnndi"]
+[ext_resource type="Texture2D" uid="uid://bmhjg048vq2lf" path="res://Sunny-land-files/Graphical Assets/sprites/frog/idle/frog-idle-2.png" id="2_0pjra"]
+[ext_resource type="Texture2D" uid="uid://ifdyc20nwggp" path="res://Sunny-land-files/Graphical Assets/sprites/enemy-death/enemy-death-2.png" id="2_uk6gl"]
+[ext_resource type="Texture2D" uid="uid://c17yvueel15oy" path="res://Sunny-land-files/Graphical Assets/sprites/enemy-death/enemy-death-3.png" id="3_1sp7h"]
+[ext_resource type="Texture2D" uid="uid://bpsjeviyokfy1" path="res://Sunny-land-files/Graphical Assets/sprites/frog/idle/frog-idle-3.png" id="3_cxcyf"]
+[ext_resource type="Texture2D" uid="uid://b380n6nenk0mf" path="res://Sunny-land-files/Graphical Assets/sprites/enemy-death/enemy-death-4.png" id="4_hgfef"]
+[ext_resource type="Texture2D" uid="uid://dq7j2dyvk3vbd" path="res://Sunny-land-files/Graphical Assets/sprites/frog/idle/frog-idle-4.png" id="4_m4y2x"]
+[ext_resource type="Texture2D" uid="uid://b7nn3pjx6xx84" path="res://Sunny-land-files/Graphical Assets/sprites/enemy-death/enemy-death-5.png" id="5_30061"]
+[ext_resource type="Texture2D" uid="uid://chsutyw87o1kq" path="res://Sunny-land-files/Graphical Assets/sprites/frog/jump/frog-jump-1.png" id="5_rtfjp"]
+[ext_resource type="Texture2D" uid="uid://k48v4wn8gps7" path="res://Sunny-land-files/Graphical Assets/sprites/enemy-death/enemy-death-6.png" id="6_445h8"]
+[ext_resource type="Texture2D" uid="uid://clqxkiu7x52y7" path="res://Sunny-land-files/Graphical Assets/sprites/frog/jump/frog-jump-2.png" id="6_tuuly"]
+[ext_resource type="AudioStream" uid="uid://dnbsiwug4nvwx" path="res://myResources/SFX/enemyKilled.mp3" id="14_h15ov"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_l43r5"]
+size = Vector2(13, 12)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8lm12"]
+animations = [{
+"frames": [{
+"duration": 0.2,
+"texture": ExtResource("1_vnndi")
+}, {
+"duration": 0.2,
+"texture": ExtResource("2_uk6gl")
+}, {
+"duration": 0.2,
+"texture": ExtResource("3_1sp7h")
+}, {
+"duration": 0.2,
+"texture": ExtResource("4_hgfef")
+}, {
+"duration": 0.2,
+"texture": ExtResource("5_30061")
+}, {
+"duration": 0.2,
+"texture": ExtResource("6_445h8")
+}],
+"loop": false,
+"name": &"Death",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_tuuly")
+}],
+"loop": true,
+"name": &"Fall",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 4.0,
+"texture": ExtResource("1_76xje")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_0pjra")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_cxcyf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_m4y2x")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_rtfjp")
+}],
+"loop": true,
+"name": &"Jump",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dgtp7"]
+radius = 230.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_skefp"]
+size = Vector2(17, 17)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kit7a"]
+size = Vector2(23, 12)
+
+[node name="Frog" type="CharacterBody2D"]
+script = ExtResource("1_2bpk2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, 5)
+shape = SubResource("RectangleShape2D_l43r5")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_8lm12")
+animation = &"Idle"
+
+[node name="PlayerDetectionArea" type="Area2D" parent="."]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetectionArea"]
+shape = SubResource("CircleShape2D_dgtp7")
+
+[node name="PlayerDeath" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDeath"]
+position = Vector2(-0.5, 2.5)
+shape = SubResource("RectangleShape2D_skefp")
+
+[node name="DamangeRange" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DamangeRange"]
+position = Vector2(-0.5, 6)
+shape = SubResource("RectangleShape2D_kit7a")
+
+[node name="enemyKilled" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("14_h15ov")
+volume_db = -40.0
+pitch_scale = 2.5
+
+[node name="JumpReload" type="Timer" parent="."]
+wait_time = 1.5
+one_shot = true
+
+[connection signal="body_entered" from="PlayerDetectionArea" to="." method="_on_player_detection_area_body_entered"]
+[connection signal="body_exited" from="PlayerDetectionArea" to="." method="_on_player_detection_area_body_exited"]
+[connection signal="body_entered" from="PlayerDeath" to="." method="_on_player_death_body_entered"]
+[connection signal="body_entered" from="DamangeRange" to="." method="_on_damange_range_body_entered"]
+[connection signal="timeout" from="JumpReload" to="." method="_on_jump_reload_timeout"]

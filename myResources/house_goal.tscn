@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://cbjmmfxvvnsv1"]
+
+[ext_resource type="Script" path="res://myResources/house_goal.gd" id="1_0l77f"]
+[ext_resource type="Texture2D" uid="uid://bh6ccexi1sw0t" path="res://Sunny-land-files/Graphical Assets/environment/Props/house.png" id="1_bf5cc"]
+[ext_resource type="AudioStream" uid="uid://bym453troww3s" path="res://myResources/Music/levelComplete.mp3" id="3_pqlr8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2x0qu"]
+size = Vector2(45, 45)
+
+[node name="HouseGoal" type="Node2D"]
+script = ExtResource("1_0l77f")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_bf5cc")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="GoalArea" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-8, 32)
+shape = SubResource("RectangleShape2D_2x0qu")
+
+[node name="LevelCompleteEffect" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_pqlr8")
+volume_db = -30.0
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
